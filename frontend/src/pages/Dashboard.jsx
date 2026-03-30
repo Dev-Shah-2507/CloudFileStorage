@@ -45,10 +45,17 @@ export const Dashboard = () => {
             const statsData = await statsRes.json();
             if (statsData.success) setStats(statsData.stats);
 
-            // Fetch Files
-            const filesRes = await fetch(`${API_URL}`, { credentials: 'include' });
+            // Fetch Files (Fix: Removed the trailing slash!)
+            const filesRes = await fetch(API_URL, { credentials: 'include' });
             const filesData = await filesRes.json();
-            if (filesData.success) setFiles(filesData.files);
+            
+            // Debugging line to see exactly what the backend sends back
+            console.log("Backend Files Response:", filesData); 
+
+            if (filesData.success) {
+                // Fix: Fallback just in case your backend calls it 'data' instead of 'files'
+                setFiles(filesData.files || filesData.data || []); 
+            }
         } catch (error) {
             console.error("Error fetching data:", error);
         }
