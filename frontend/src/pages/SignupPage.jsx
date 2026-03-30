@@ -14,34 +14,35 @@ const SignUpPage = () => {
   
   const navigate = useNavigate();
 
-  const handleSignup = async (e) => {
-    e.preventDefault();
-    setIsLoading(true);
-    setError(null);
+  const API = import.meta.env.VITE_API_URL;
 
-    try {
-      const response = await fetch("http://localhost:3000/api/auth/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, password }),
-      });
+const handleSignup = async (e) => {
+  e.preventDefault();
+  setIsLoading(true);
+  setError(null);
 
-      const data = await response.json();
+  try {
+    const response = await fetch(`${API}/api/auth/signup`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include", // ✅ added
+      body: JSON.stringify({ name, email, password }),
+    });
 
-      if (!response.ok) {
-        throw new Error(data.message || "Error signing up");
-      }
+    const data = await response.json();
 
-      console.log("Signup successful:", data);
-      navigate("/verify-email"); 
-
-    } catch (err) {
-      console.error(err);
-      setError(err.message);
-    } finally {
-      setIsLoading(false);
+    if (!response.ok) {
+      throw new Error(data.message || "Error signing up");
     }
-  };
+
+    navigate("/verify-email");
+
+  } catch (err) {
+    setError(err.message);
+  } finally {
+    setIsLoading(false);
+  }
+};
 
   return (
     <div className="min-h-screen w-full bg-gray-900 flex items-center justify-center relative overflow-hidden">

@@ -29,10 +29,15 @@ const ResetPasswordPage = () => {
 
     try {
       // We pass the token in the URL (req.params) and password in body (req.body)
-      const response = await fetch(`http://localhost:3000/api/auth/resetPassword/${token}`, {
+      // ADD THIS
+      const API = import.meta.env.VITE_API_URL;
+
+      // CHANGE FETCH
+      const response = await fetch(`${API}/api/auth/resetPassword/${token}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ newPassword: password }), // Backend expects 'newPassword'
+        credentials: "include",
+        body: JSON.stringify({ newPassword: password }),
       });
 
       const data = await response.json();

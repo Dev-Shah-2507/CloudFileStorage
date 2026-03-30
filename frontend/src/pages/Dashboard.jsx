@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; // <-- NEW: Import useNavigate
 
-const API_URL = 'http://localhost:3000/api/files'; 
-const AUTH_URL = 'http://localhost:3000/api/auth'; // <-- NEW: Base URL for auth
+const BASE = import.meta.env.VITE_API_URL;
+
+const API_URL = `${BASE}/api/files`;
+const AUTH_URL = `${BASE}/api/auth`;
 
 export const Dashboard = () => {
     const [files, setFiles] = useState([]);

@@ -19,12 +19,16 @@ const LoginPage = () => {
     setError(null);
 
     try {
-      const response = await fetch("http://localhost:3000/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({ email, password }),
-      });
+      // ADD THIS
+     const API = import.meta.env.VITE_API_URL;
+     
+     // CHANGE FETCH
+     const response = await fetch(`${API}/api/auth/login`, {
+       method: "POST",
+       headers: { "Content-Type": "application/json" },
+       credentials: "include",
+       body: JSON.stringify({ email, password }),
+     });     
 
       const data = await response.json();
 
@@ -33,7 +37,7 @@ const LoginPage = () => {
       }
 
       console.log("Login successful:", data);
-      navigate("/dashboard"); 
+      navigate("/"); 
 
     } catch (err) {
       setError(err.message);

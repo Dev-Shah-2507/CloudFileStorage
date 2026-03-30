@@ -20,13 +20,13 @@ function App() {
     <FloatingShape color="bg-lime-500" size="w-32 h-32" top="40%" left="-10%" delay={2} />
 
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<Dashboard />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/forgotPassword" element={<ForgotPassword />} />
         <Route path="/verify-email" element={<EmailVerificationPage />} />
         <Route path="/reset-password/:token" element={<ResetPassword />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        {/* <Route path="/dashboard" element={<Dashboard />} /> */}
       </Routes>
     </div>
   );

@@ -16,11 +16,16 @@ const EmailVerificationPage = () => {
     setError(null);
 
     try {
-      const response = await fetch("http://localhost:3000/api/auth/verify-email", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ code }),
-      });
+      // ADD THIS
+    const API = import.meta.env.VITE_API_URL;
+
+    // CHANGE FETCH
+    const response = await fetch(`${API}/api/auth/verify-email`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({ code }),
+    });
 
       const data = await response.json();
 
