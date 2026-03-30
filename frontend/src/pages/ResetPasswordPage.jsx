@@ -33,7 +33,7 @@ const ResetPasswordPage = () => {
       const API = import.meta.env.VITE_API_URL;
       console.log(`${API}`)
       // CHANGE FETCH
-      const response = await fetch(`${API}/api/auth/resetPassword/${token}`, {
+      const response = await fetch(`/api/auth/resetPassword/${token}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",

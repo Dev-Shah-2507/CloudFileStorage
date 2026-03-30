@@ -20,7 +20,7 @@ const ForgotPasswordPage = () => {
 const API = import.meta.env.VITE_API_URL;
 
 // CHANGE FETCH
-const response = await fetch(`${API}/api/auth/forgotPassword`, {
+const response = await fetch(`/api/auth/forgotPassword`, {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   credentials: "include",

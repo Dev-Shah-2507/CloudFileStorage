@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom'; // <-- NEW: Import useNavigate
 
 const BASE = import.meta.env.VITE_API_URL;
 
-const API_URL = `${BASE}/api/files`;
-const AUTH_URL = `${BASE}/api/auth`;
+const API_URL = `/api/files`;
+const AUTH_URL = `/api/auth`;
 
 export const Dashboard = () => {
     const [files, setFiles] = useState([]);

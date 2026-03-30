@@ -20,7 +20,7 @@ const EmailVerificationPage = () => {
     const API = import.meta.env.VITE_API_URL;
 
     // CHANGE FETCH
-    const response = await fetch(`${API}/api/auth/verify-email`, {
+    const response = await fetch(`/api/auth/verify-email`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       credentials: "include",

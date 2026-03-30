@@ -22,7 +22,7 @@ const handleSignup = async (e) => {
   setError(null);
 
   try {
-    const response = await fetch(`${API}/api/auth/signup`, {
+    const response = await fetch(`/api/auth/signup`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       credentials: "include", // ✅ added
