@@ -1,6 +1,9 @@
 import express from "express"
 import mongoose from "mongoose"
-import 'dotenv/config'
+// import 'dotenv/config'
+import dotenv from "dotenv";
+dotenv.config();
+
 // import {AuthDB} from "../modules/AuthDB.js"
 import authRoutes from './routes/auth.js'
 import cookieParser from "cookie-parser";
@@ -9,12 +12,15 @@ import cors from "cors"; // or const cors = require('cors');
 import fileRoutes from './routes/files.js';
 
 const app = express()
-await mongoose.connect("mongodb://127.0.0.1:27017/AuthDB")
+await mongoose.connect("mongodb+srv://devs24692_db_user:Dev1234@cluster0.fqtoglt.mongodb.net/secure-files-db?retryWrites=true&w=majority")
 
 // Add this middleware BEFORE your routes
 app.use(cors({
-  origin: "http://localhost:5173", // URL of your Frontend (Check if it's 3000 or 5173)
-  credentials: true // Allow cookies to be sent (important for login sessions)
+  origin: [
+    "http://localhost:5173",
+    "https://cloud-file-storage-steel.vercel.app"
+  ],
+  credentials: true
 }));
 
 app.get('/' , (req , res) => {
