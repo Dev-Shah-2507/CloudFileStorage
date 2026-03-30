@@ -12,7 +12,7 @@ import cors from "cors"; // or const cors = require('cors');
 import fileRoutes from './routes/files.js';
 
 const app = express()
-await mongoose.connect("MONGODB_URI")
+await mongoose.connect("mongodb+srv://devs24692_db_user:Dev1234@cluster0.fqtoglt.mongodb.net/secure-files-db?retryWrites=true&w=majority")
 
 // Add this middleware BEFORE your routes
 app.use(cors({
