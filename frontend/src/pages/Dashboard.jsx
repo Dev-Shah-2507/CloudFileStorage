@@ -46,7 +46,7 @@ export const Dashboard = () => {
             if (statsData.success) setStats(statsData.stats);
 
             // Fetch Files
-            const filesRes = await fetch(`${API_URL}/`, { credentials: 'include' });
+            const filesRes = await fetch(`${API_URL}`, { credentials: 'include' });
             const filesData = await filesRes.json();
             if (filesData.success) setFiles(filesData.files);
         } catch (error) {
