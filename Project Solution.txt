@@ -1,0 +1,39 @@
+Phase 1: The Database & Cloud Setup (Backend)
+Update modules/AuthDB.js: Add the totalFilesUploaded and totalStorageUsed fields.
+
+Create modules/File.js: Build the schema to track S3 keys, file sizes, and ownership.
+
+Create modules/Activity.js: Build the audit log schema.
+
+Update controller/auth.controller.js: Tweak your existing login function to update the lastLogin date and write a "Login" event to the Activity log.
+
+Create config/awsConfig.js: Initialize the S3 client.
+
+Goal: Your database is ready to track files, and your app is authorized to talk to AWS.
+
+Phase 2: The Core API (Backend)
+Create controller/files.controller.js: This is the heavy lifting. We write the logic for uploadFile, listFiles, downloadFile (generating the pre-signed URL), and deleteFile.
+
+Create routes/files.js: Map the endpoints (POST /upload, GET /, etc.) to the controller functions.
+
+Protect Routes: Wrap all new file routes in your existing middleware/verifyToken.js so only logged-in users can access them.
+
+Goal: You can successfully upload and manage files using Postman.
+
+Phase 3: The Dashboard (Frontend)
+Create Dashboard.jsx: Build the main UI where users land after logging in.
+
+Wire up the API: Write the fetch calls to talk to your new backend routes, ensuring you pass the JWT in the headers.
+
+Build the UI: Add a file upload dropzone, a table displaying their files, and action buttons for downloading and deleting.
+
+Goal: You have a fully functioning app running locally on your machine.
+
+Phase 4: Cloud Infrastructure & Deployment (AWS)
+AWS Console: Create the secure-files-storage-bucket (Private) and secure-files-frontend (Public). Setup the IAM Role.
+
+EC2: Launch the server, install PM2, clone your code, and run the backend.
+
+S3 Hosting: Build your React app (npm run build) and upload it to the public bucket.
+
+Goal: Your app is live on the internet and highly secure.

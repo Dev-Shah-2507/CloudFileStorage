@@ -33,7 +33,7 @@ const LoginPage = () => {
       }
 
       console.log("Login successful:", data);
-      navigate("/"); 
+      navigate("/dashboard"); 
 
     } catch (err) {
       setError(err.message);

@@ -1,18 +1,26 @@
-import jwt from 'jsonwebtoken'
+import jwt from "jsonwebtoken";
 
-export const verifyToken = async (req , res) => {
-   const token = req.cookies.token
-   if(!token) res.status(400).json({success:false , message:"Unauthorized - No token provided"})
+export const verifyToken = (req, res, next) => {
+  try {
+    const token = req.cookies.token;
 
-   try {
-    const decoded = jwt.verify(token , process.env.JWT_SECRET)
-    if(!decoded) return res.status(401).json({ success: false, message: "Unauthorized - invalid token" })
-    
-    req.userId = decoded.userId
-    next()
+    if (!token) {
+      return res.status(401).json({
+        success: false,
+        message: "Unauthorized - No token provided",
+      });
+    }
 
-   } catch(error){
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    req.userId = decoded.userId;
+
+    next(); // ✅ now works
+  } catch (error) {
     console.log("Error in verifyToken ", error);
-    return res.status(500).json({ success: false, message: "Server error" });
-   }
-}
+    return res.status(401).json({
+      success: false,
+      message: "Unauthorized",
+    });
+  }
+};

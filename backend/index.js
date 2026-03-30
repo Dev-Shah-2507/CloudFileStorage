@@ -6,6 +6,8 @@ import authRoutes from './routes/auth.js'
 import cookieParser from "cookie-parser";
 import cors from "cors"; // or const cors = require('cors');
 
+import fileRoutes from './routes/files.js';
+
 const app = express()
 await mongoose.connect("mongodb://127.0.0.1:27017/AuthDB")
 
@@ -23,6 +25,8 @@ app.use(cookieParser())
 app.use(express.json())
 // this helps in parsing data and fetching them directly like {val1,val2} from any req coming in any file from here 
 app.use('/api/auth' , authRoutes)
+
+app.use('/api/files' , fileRoutes) // ************************
 
 app.listen(3000 , ()=> {
     console.log("Server listening at port 3000 !!");

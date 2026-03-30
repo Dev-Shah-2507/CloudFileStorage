@@ -33,6 +33,9 @@ const AuthSchema = new mongoose.Schema({
 
     verificationToken: String,
     verificationTokenExpiresAt: Date,
+    // --- NEW FIELDS FOR FILE TRACKING ---
+    totalFilesUploaded: { type: Number, default: 0 },
+    totalStorageUsed: { type: Number, default: 0 }, // Stored in bytes
 } , { timestamps: true })
 
 export const AuthDB = mongoose.model('AuthDB' , AuthSchema)

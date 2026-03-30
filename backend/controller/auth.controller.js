@@ -2,7 +2,9 @@ import { AuthDB } from "../modules/AuthDB.js"
 import crypto from "crypto";
 import bcrypt from "bcryptjs";
 import { generateTokenAndSetCookie } from "../utils/generateTokenAndSetCookie.js";
-import {sendVerificationEmail , sendWelcomeEmail , sendChangePasswordEmail , sendResetPasswordSuccessEmail} from "../mailtrap/emails.js"
+import {sendVerificationEmail , sendWelcomeEmail , sendChangePasswordEmail , sendResetPasswordSuccessEmail} from "../nodemailer/emails.js"
+
+import { Activity } from '../modules/Activity.js';
 
 export const checkAuth = async (req , res) => {
     try {
@@ -49,6 +51,14 @@ export const signup = async (req , res) => {
 
   generateTokenAndSetCookie(res , user._id)
   sendVerificationEmail(email , verificationToken)
+
+  // --- NEW CODE GOES HERE ---
+  await Activity.create({
+      userId: user._id,
+      action: 'REGISTER',
+  });
+  // -------------------------
+
   res.status(201).json({
     success: true,
     message: "User created successfully !!",
@@ -78,6 +88,13 @@ export const verifyEmail = async (req , res) => {
   await user.save()
 
   await sendWelcomeEmail(user.email , user.name)
+
+  // --- NEW CODE GOES HERE ---
+  await Activity.create({
+      userId: user._id,
+      action: 'VERIFY_EMAIL',
+  });
+  // -------------------------
 
   res.status(201).json({
     success: true,
@@ -112,6 +129,13 @@ export const login = async (req , res) => {
    user.lastLogin = new Date()
 
    await user.save()
+
+   // 2. Log the activity
+   await Activity.create({
+       userId: user._id,
+       action: 'LOGIN',
+   });
+   // -------------------------
 
    res.status(200).json({
     success:true ,
@@ -196,12 +220,11 @@ export const resetPassword = async (req , res) => {
 
 export const logout = (req, res) => {
   res.clearCookie("token", {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
-    path: "/", // explicitly match the default path
-  });
-
+  httpOnly: true,
+  secure: false,
+  sameSite: "lax", // ✅ match login
+  path: "/",
+});
   return res.status(200).json({
     success: true,
     message: "Logged out successfully",

@@ -1,11 +1,13 @@
 import { Routes, Route } from "react-router-dom"
-import FloatingShape from "./components/FloatingShape"
+import FloatingShape from "./auth/FloatingShape.jsx"
 import HomePage from "./pages/HomePage.jsx"
 import SignupPage from "./pages/SignupPage.jsx"
 import LoginPage from "./pages/LoginPage.jsx"
 import ForgotPassword from "./pages/forgotPassword.jsx"
 import EmailVerificationPage from "./pages/EmailVerificationPage.jsx"
 import ResetPassword from "./pages/ResetPasswordPage.jsx"
+
+import { Dashboard } from "./pages/Dashboard.jsx"
 
 function App() {
   return (
@@ -21,9 +23,10 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/ForgotPassword" element={<ForgotPassword />} />
-        <Route path="/EmailVerification" element={<EmailVerificationPage />} />
+        <Route path="/forgotPassword" element={<ForgotPassword />} />
+        <Route path="/verify-email" element={<EmailVerificationPage />} />
         <Route path="/reset-password/:token" element={<ResetPassword />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </div>
   );
